@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_15_170255) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_15_192229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_170255) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["stadium_id"], name: "index_games_on_stadium_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "stadium_id", null: false
+    t.bigint "game_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_reservations_on_game_id"
+    t.index ["stadium_id"], name: "index_reservations_on_stadium_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "stadiums", force: :cascade do |t|
@@ -46,4 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_170255) do
   end
 
   add_foreign_key "games", "stadiums"
+  add_foreign_key "reservations", "games"
+  add_foreign_key "reservations", "stadiums"
+  add_foreign_key "reservations", "users"
 end
