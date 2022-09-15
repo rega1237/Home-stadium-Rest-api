@@ -49,3 +49,6 @@ group :development do
 end
 
 gem 'devise'
+
+# Create file to add env values run "bundle exec figaro install" after bundle install
+gem 'figaro'
