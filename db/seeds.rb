@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-user1 = User.create!(user_name: "rega1237")
-user2 = User.create!(user_name: "johndoe")
-user3 = User.create!(user_name: "janedoe")
+user1 = User.create!(username: "rega1237")
+user2 = User.create!(username: "johndoe")
+user3 = User.create!(username: "janedoe")
 
 stadium1 = Stadium.create!(name: "Camp Nou", country: "Spain", seats: 5, photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Camp_Nou_2017.jpg/1200px-Camp_Nou_2017.jpg")
 stadium2 = Stadium.create!(name: "Allianz Arena", country: "Germany", seats: 5, photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Camp_Nou_2017.jpg/1200px-Camp_Nou_2017.jpg")
