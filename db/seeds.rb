@@ -35,6 +35,7 @@ game5 = Game.create!(team_a: team7, team_b: team8, stadium: stadium4, date: "202
 game6 = Game.create!(team_a: team1, team_b: team3, stadium: stadium5, date: "2023-10-01")
 game7 = Game.create!(team_a: team2, team_b: team4, stadium: stadium6, date: "2023-11-01")
 game8 = Game.create!(team_a: team5, team_b: team7, stadium: stadium7, date: "2023-12-01")
+game9 = Game.create!(team_a: team6, team_b: team8, stadium: stadium1, date: "2023-01-01")
 
 resevation1 = Reservation.create!(user: user1, game: game1, stadium: stadium1)
 resevation2 = Reservation.create!(user: user2, game: game2, stadium: stadium2)

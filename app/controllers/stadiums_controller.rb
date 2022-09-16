@@ -7,7 +7,8 @@ class StadiumsController < ApplicationController
   end
 
   def show
-    render json: @stadium, status: :ok
+    @games = Game.where(stadium_id: @stadium.id)
+    render json: {all_data: {stadium: @stadium, games: @games}}
   end
 
   def create
