@@ -1,18 +1,20 @@
 class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
-    render json: {all_data: { games: @game, team_a: @game.team_a.name, team_b: @game.team_b.name }}, status: :ok
+    render json: {all_data: { games: @game, teams: @game.teams, stadium: @game.stadium, seats: @game.available_seats }}, status: :ok
   end
 
   def create
     @game = Game.new(games_params)
     @game.stadium_id = params[:stadium_id]
-    @game.team_a = Team.find(params[:game][:team_a])
-    @game.team_b = Team.find(params[:game][:team_b])
+    @team_one = Team.find(params[:game][:team_one])
+    @team_two = Team.find(params[:game][:team_two])
+    @game.teams << @team_one
+    @game.teams << @team_two
     if @game.save
-      render json: @game, status: :ok
+      render json: {all_data: {games: @game, game_teams: @game.teams}}, status: :created
     else
-      render json: @game.errors, status: :unprocessable_entity
+      render json: @game.errors.full_messages, status: :unprocessable_entity
     end
   end
 
