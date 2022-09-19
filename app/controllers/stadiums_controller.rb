@@ -1,5 +1,5 @@
 class StadiumsController < ApplicationController
-  before_action :set_stadium, only: [:show, :destroy]
+  before_action :set_stadium, only: %i[show destroy]
 
   def index
     @stadiums = Stadium.all
@@ -22,7 +22,7 @@ class StadiumsController < ApplicationController
   def destroy
     @stadium.destroy
     render json: @stadium, status: :ok
-  end 
+  end
 
   private
 
