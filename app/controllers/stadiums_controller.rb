@@ -7,8 +7,7 @@ class StadiumsController < ApplicationController
   end
 
   def show
-    @games = Game.where(stadium_id: @stadium.id)
-    render json: {all_data: {stadium: @stadium, games: @games}}
+    render json: @stadium, serializer: StadiumsSerializer
   end
 
   def create
