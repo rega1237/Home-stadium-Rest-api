@@ -9,7 +9,8 @@ class StadiumsSerializer < ActiveModel::Serializer
             flag: team.flag
           }
         end,
-        date: game.date
+        date: game.date,
+        aviable_seats: game.available_seats
       }
     end
   end
