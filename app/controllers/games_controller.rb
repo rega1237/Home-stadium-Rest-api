@@ -23,7 +23,7 @@ class GamesController < ApplicationController
     if @game.save
       render json: {
                all_data: {
-                 games: @game,
+                 game: @game,
                  stadium_id: @game.stadium_id,
                  av_seats: @game.available_seats,
                  game_teams: @game.teams
