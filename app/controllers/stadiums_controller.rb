@@ -27,7 +27,7 @@ class StadiumsController < ApplicationController
   private
 
   def stadium_params
-    params.require(:stadium).permit(:name, :county, :seats, :photo)
+    params.require(:stadium).permit(:name, :country, :seats, :photo)
   end
 
   def set_stadium
