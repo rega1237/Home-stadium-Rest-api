@@ -5,7 +5,7 @@ class ReservationsController < ApplicationController
     @reservations = Reservation.where(user_id: @current_user_id)
     render json: @reservations, each_serializer: ReservationsSerializer
   end
-  
+
   def show
     render json: @reservation, serializer: ReservationsSerializer
   end
@@ -23,7 +23,7 @@ class ReservationsController < ApplicationController
   end
 
   def destroy
-    #implement
+    # implement
   end
 
   private
