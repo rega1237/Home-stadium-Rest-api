@@ -1,5 +1,5 @@
 class StadiumsSerializer < ActiveModel::Serializer
-  attributes :id, :name, :country, :seats, :coming_games
+  attributes :id, :name, :country, :seats, :photo, :coming_games
   def coming_games
     object.games.map do |game|
       next unless game.available_seats.positive?
