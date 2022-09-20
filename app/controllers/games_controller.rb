@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   def show
     render json: {
              all_data: {
-               games: @game,
+               game: @game,
                teams: @game.teams,
                stadium: @game.stadium,
                seats: @game.available_seats
