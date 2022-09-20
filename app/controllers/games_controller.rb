@@ -1,9 +1,10 @@
 class GamesController < ApplicationController
+  before_action :set_game, only: %i[show destroy]
+
   def show
-    @game = Game.find(params[:id])
     render json: {
              all_data: {
-               games: @game,
+               game: @game,
                teams: @game.teams,
                stadium: @game.stadium,
                seats: @game.available_seats
@@ -35,9 +36,16 @@ class GamesController < ApplicationController
     end
   end
 
-  def delete; end
+  def destroy
+    @game.destroy
+    render json: :@game, status: :ok
+  end
 
   private
+
+  def set_game
+    @game = Game.find(params[:id])
+  end
 
   def games_params
     params.require(:game).permit(:date)
