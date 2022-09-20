@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :get_params_game, only [:show, :destroy]
+  before_action :get_params_game, only: [:show, :destroy]
   
   def show
     render json: {
