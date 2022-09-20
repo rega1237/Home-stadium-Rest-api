@@ -38,7 +38,7 @@ class GamesController < ApplicationController
 
   def destroy
     @game.destroy
-    render json :@game, status: :ok 
+    render json: :@game, status: :ok 
   end
 
   private
