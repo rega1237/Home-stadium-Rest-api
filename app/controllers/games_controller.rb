@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
-  before_action :get_params_game, only: [:show, :destroy]
-  
+  before_action :set_game, only: %i[show destroy]
+
   def show
     render json: {
              all_data: {
@@ -38,12 +38,12 @@ class GamesController < ApplicationController
 
   def destroy
     @game.destroy
-    render json: :@game, status: :ok 
+    render json: :@game, status: :ok
   end
 
   private
 
-  def get_params_game
+  def set_game
     @game = Game.find(params[:id])
   end
 
