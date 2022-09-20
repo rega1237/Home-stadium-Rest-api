@@ -5,6 +5,7 @@ class StadiumsSerializer < ActiveModel::Serializer
       next unless game.available_seats.positive?
 
       {
+        game_id: game.id,
         teams: game.teams.map do |team|
           {
             name: team.name,
