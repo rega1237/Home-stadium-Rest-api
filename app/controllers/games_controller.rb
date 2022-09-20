@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
+  before_action :get_params_game, only [:show, :destroy]
+  
   def show
-    @game = Game.find(params[:id])
     render json: {
              all_data: {
                games: @game,
@@ -35,9 +36,16 @@ class GamesController < ApplicationController
     end
   end
 
-  def delete; end
+  def destroy
+    @game.destroy
+    render json :@game, status: :ok 
+  end
 
   private
+
+  def get_params_game
+    @game = Game.find(params[:id])
+  end
 
   def games_params
     params.require(:game).permit(:date)
