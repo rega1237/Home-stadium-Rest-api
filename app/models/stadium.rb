@@ -1,5 +1,5 @@
 class Stadium < ApplicationRecord
-  has_many :games
+  has_many :games, dependent: :destroy
   has_many :reservations
 
   validates :name, :country, :seats, :photo, presence: true

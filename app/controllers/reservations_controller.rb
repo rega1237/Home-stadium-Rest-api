@@ -12,18 +12,24 @@ class ReservationsController < ApplicationController
 
   def create
     @game = Game.find(params[:reservation][:game_id])
-    @reservation = Reservation.new(reservation_params)
-    @reservation = @game.reservations.create(reservation_params)
-    @reservation.user = @current_user_id
-    if @reservation.save
-      render json: @reservation, status: :created
+    @valid = @game.available_seats >= params[:reservation][:reserved_seats].to_i
+    if @valid
+      @reservation = Reservation.new(reservation_params)
+      @reservation = @game.reservations.create(reservation_params)
+      @reservation.user = @current_user_id
+      if @reservation.save
+        render json: @reservation, status: :created
+      else
+        render json: @reservation.errors.full_messages, status: :unprocessable_entity
+      end
     else
-      render json: @reservation.errors.full_messages, status: :unprocessable_entity
+      render json: { error: 'Not enough seats available' }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    # implement
+    @reservation.destroy
+    render json: @stadium, status: :ok
   end
 
   private
