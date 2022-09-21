@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Stadiums', type: :request do
-  describe 'GET /index' do
-    pending "add some examples (or delete) #{__FILE__}"
-  end
+      
+      let!(:user) { User.order(:id).first }
+
+    describe 'For allowed user' do
+        before do
+          login(user)
+          get :show, params: { id: 1 }
+        end
+        
+        it { expect(response).to have_http_status(:ok) }
+    end
 end
