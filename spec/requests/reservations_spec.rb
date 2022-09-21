@@ -20,10 +20,10 @@ RSpec.describe 'Reservations', type: :request do
       expect(response).to have_http_status(:success)
     end
 
-    # it 'Return Show success' do
-    #   get user_reservation_path(@user.id, @reservation.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
-    #   expect(response).to have_http_status(:success)
-    # end
+    it 'Return Show success' do
+      get user_reservation_path(@user.id, @reservation.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+      expect(response).to have_http_status(:success)
+    end
 
     # it 'Return Create success' do
     #   post stadium_games_path(@stadium.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { 
