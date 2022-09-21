@@ -12,12 +12,12 @@ RSpec.describe 'Stadiums', type: :request do
 
   describe 'Stadiums`s Actions' do
     it 'Return Index success' do
-      get stadiums_path, headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+      get stadiums_path, headers: { 'Content-Type': 'application/json', 'Authorization': @token }
       expect(response).to have_http_status(:success)
     end
 
     it 'Return Show success' do
-      get stadium_path(@stadium.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+      get stadium_path(@stadium.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }
       expect(response).to have_http_status(:success)
     end
 
@@ -32,7 +32,7 @@ RSpec.describe 'Stadiums', type: :request do
     end
 
     it 'Return Delete success' do
-      delete stadium_path(@stadium.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+      delete stadium_path(@stadium.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }
       expect(response).to have_http_status(:success)
     end
   end
