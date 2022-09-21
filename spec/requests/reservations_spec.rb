@@ -9,7 +9,7 @@ RSpec.describe 'Reservations', type: :request do
     @game = Game.order(:id).first
     @team_one = Team.order(:id).first
     @team_two = Team.order(:id).last
-    @resevation = Reservation.order(:id).first
+    @reservation = Reservation.order(:id).first
     post auth_login_path, headers: { 'Content-Type': 'application/json' }, params: { username:@user.username }.to_json  
     @token = JSON.parse(response.body)['token']
   end
@@ -21,7 +21,7 @@ RSpec.describe 'Reservations', type: :request do
     end
 
     # it 'Return Show success' do
-    #   get stadium_game_path(@stadium.id, @game.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+    #   get user_reservation_path(@user.id, @reservation.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
     #   expect(response).to have_http_status(:success)
     # end
 
@@ -38,9 +38,9 @@ RSpec.describe 'Reservations', type: :request do
     #   expect(response).to have_http_status(:success)
     # end
 
-    # it 'Return Delete success' do
-    #   delete stadium_game_path(@stadium.id, @game.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
-    #   expect(response).to have_http_status(:success)
-    # end
+    it 'Return Delete success' do
+      delete user_reservation_path(@user.id, @reservation.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }
+      expect(response).to have_http_status(:success)
+    end
   end
 end
