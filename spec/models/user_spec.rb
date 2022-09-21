@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:each) do
-    User.destroy_all
     @first_user = User.create(username: 'username')
   end
 

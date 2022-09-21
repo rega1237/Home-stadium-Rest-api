@@ -5,7 +5,7 @@ RSpec.describe 'Users', type: :request do
 
   before :all do
     @user = User.order(:id).first
-    post auth_login_path, headers: { 'Content-Type': 'application/json' }, params: { username:@user.username }.to_json  
+    post auth_login_path, headers: { 'Content-Type': 'application/json' }, params: { username: @user.username }.to_json
     # @token = JSON.parse(response.body)['token']
   end
 

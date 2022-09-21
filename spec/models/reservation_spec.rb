@@ -18,8 +18,8 @@ RSpec.describe Reservation, type: :model do
     )
     @reservation = Reservation.create(
       user_id: @user.id,
-      stadium_id: @stadium.id,
-      game_id: @game.id
+      game_id: @game.id,
+      reserved_seats: 5
     )
   end
 
@@ -30,11 +30,6 @@ RSpec.describe Reservation, type: :model do
 
     it 'should have a User' do
       @reservation.user_id = nil
-      expect(@reservation).to_not be_valid
-    end
-
-    it 'should have a Stadium' do
-      @reservation.stadium_id = nil
       expect(@reservation).to_not be_valid
     end
 
