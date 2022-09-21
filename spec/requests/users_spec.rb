@@ -15,6 +15,10 @@ RSpec.describe 'Users', type: :request do
         expect(response).to have_http_status(:success)
       end
 
+      it 'returns current user username' do
+        @body = JSON.parse(response.body)
+        expect(@body['username']).to eq @user.username
+      end
     end
   end
 end
