@@ -3,41 +3,38 @@ require 'rails_helper'
 RSpec.describe GamesController, type: :request do
   include Warden::Test::Helpers
 
-  before :each do
-    @user = User.create(
-      username: 'username'
-    )
-
-    login_as(@user, scope: :user)
-
-    @stadium = Stadium.create(
-      name: 'Stadium`s name',
-      country: 'Stadium`s country',
-      seats: 10,
-      photo: 'Stadium`s photo'
-    )
-
-    @game = Game.create(
-      date: '01-01-1011',
-      stadium_id: @stadium.id,
-      available_seats: 5
-    )
+  before :all do
+    @user = User.order(:id).first
+    @stadium = Stadium.order(:id).first
+    @game = Game.order(:id).first
+    @team_one = Team.order(:id).first
+    @team_two = Team.order(:id).last
+    post auth_login_path, headers: { 'Content-Type': 'application/json' }, params: { username:@user.username }.to_json  
+    @token = JSON.parse(response.body)['token']
   end
 
-  describe 'GET #show' do
-    it 'should return a success response' do
-      get stadium_game_path(@game)
-      expect(response).to be_successful
+  describe 'Games`s Actions' do
+    it 'Return Show success' do
+      get stadium_game_path(@stadium.id, @game.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+      expect(response).to have_http_status(:success)
     end
 
-    it 'should return a 200 response' do
-      get stadium_game_path(@stadium)
-      expect(response).to have_http_status 'ok'
-    end
+    # it 'Return Create success' do
+    #   post stadium_games_path(@stadium.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { 
+    #     game: {
+    #       date: '01-01-1011',
+    #       stadium_id: @stadium.id,
+    #       available_seats: 10,
+    #       team_one: @team_one.id,
+    #       team_two: @team_two.id
+    #     }
+    #   }.to_json
+    #   expect(response).to have_http_status(:success)
+    # end
 
-    it 'should return a list of games' do
-      get stadium_game_path(@stadium)
-      expect(response.body).to include @game.date
-    end
+    # it 'Return Delete success' do
+    #   delete stadium_game_path(@stadium.id, @game.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+    #   expect(response).to have_http_status(:success)
+    # end
   end
 end
