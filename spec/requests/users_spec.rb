@@ -11,20 +11,25 @@ RSpec.describe 'Users', type: :request do
     login_as(@user, scope: :user)
   end
 
-  describe 'User created' do
-    it 'should return a success response' do
-      get group_expenses_path(@group)
-      expect(response).to be_successful
+  describe 'action users#current' do
+    before(:each) do
+      post 'http://localhost:3000/auth/login', params: { username: 'username' }
     end
 
-    it 'should return a 200 response' do
-      get group_expenses_path(@group)
-      expect(response).to have_http_status '200'
-    end
+    context 'when logged in' do
+      it 'returns http_success' do
+        expect(response).to have_http_status(:success)
+      end
 
-    it 'should return a list of expenses' do
-      get group_expenses_path(@group)
-      expect(response.body).to include @expense.name
+      # it 'header "Content-Type" contains application/json' do
+      #   expect(response.header['Content-Type']).to include('application/json')
+      # end
+
+      # it 'returns current user info' do
+      #   @body = JSON.parse(response.body)
+      #   expect(@body['name']).to eq 'Roberto'
+      #   expect(@body['email']).to eq 'roberto@mail.com'
+      # end
     end
   end
 end
