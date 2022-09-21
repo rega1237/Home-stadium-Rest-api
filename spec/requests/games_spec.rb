@@ -1,37 +1,42 @@
 require 'rails_helper'
 
-RSpec.describe 'Games', type: :request do
-  describe 'GET /index' do
-    it 'returns http success' do
-      get '/games/index'
-      expect(response).to have_http_status(:success)
-    end
+RSpec.describe GamesController, type: :request do
+  include Warden::Test::Helpers
+
+  before :all do
+    @user = User.order(:id).first
+    @stadium = Stadium.order(:id).first
+    @game = Game.order(:id).first
+    @team_one = Team.order(:id).first
+    @team_two = Team.order(:id).last
+    post auth_login_path, headers: { 'Content-Type': 'application/json' }, params: { username: @user.username }.to_json
+    @token = JSON.parse(response.body)['token']
   end
 
-  describe 'GET /show' do
-    it 'returns http success' do
-      get '/games/show'
+  describe 'Games`s Actions' do
+    it 'Return Show success' do
+      get stadium_game_path(@stadium.id, @game.id),
+          headers: { 'Content-Type': 'application/json', Authorization: @token }
       expect(response).to have_http_status(:success)
     end
-  end
 
-  describe 'GET /new' do
-    it 'returns http success' do
-      get '/games/new'
+    it 'Return Create success' do
+      post stadium_games_path(@stadium.id), headers: { 'Content-Type': 'application/json', Authorization: @token },
+                                            params: {
+                                              game: {
+                                                date: '01-01-1011',
+                                                stadium_id: @stadium.id,
+                                                available_seats: 10,
+                                                team_one: @team_one.id,
+                                                team_two: @team_two.id
+                                              }
+                                            }.to_json
       expect(response).to have_http_status(:success)
     end
-  end
 
-  describe 'GET /create' do
-    it 'returns http success' do
-      get '/games/create'
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe 'GET /delete' do
-    it 'returns http success' do
-      get '/games/delete'
+    it 'Return Delete success' do
+      delete stadium_game_path(@stadium.id, @game.id),
+             headers: { 'Content-Type': 'application/json', Authorization: @token }
       expect(response).to have_http_status(:success)
     end
   end
