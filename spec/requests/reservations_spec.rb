@@ -14,28 +14,33 @@ RSpec.describe 'Reservations', type: :request do
     @token = JSON.parse(response.body)['token']
   end
 
-  describe 'Games`s Actions' do
-    it 'Return Show success' do
-      get stadium_game_path(@stadium.id, @game.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+  describe 'Reservations`s Actions' do
+    it 'Return Index success' do
+      get user_reservations_path(@user.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
       expect(response).to have_http_status(:success)
     end
 
-    it 'Return Create success' do
-      post stadium_games_path(@stadium.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { 
-        game: {
-          date: '01-01-1011',
-          stadium_id: @stadium.id,
-          available_seats: 10,
-          team_one: @team_one.id,
-          team_two: @team_two.id
-        }
-      }.to_json
-      expect(response).to have_http_status(:success)
-    end
+    # it 'Return Show success' do
+    #   get stadium_game_path(@stadium.id, @game.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+    #   expect(response).to have_http_status(:success)
+    # end
 
-    it 'Return Delete success' do
-      delete stadium_game_path(@stadium.id, @game.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
-      expect(response).to have_http_status(:success)
-    end
+    # it 'Return Create success' do
+    #   post stadium_games_path(@stadium.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { 
+    #     game: {
+    #       date: '01-01-1011',
+    #       stadium_id: @stadium.id,
+    #       available_seats: 10,
+    #       team_one: @team_one.id,
+    #       team_two: @team_two.id
+    #     }
+    #   }.to_json
+    #   expect(response).to have_http_status(:success)
+    # end
+
+    # it 'Return Delete success' do
+    #   delete stadium_game_path(@stadium.id, @game.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+    #   expect(response).to have_http_status(:success)
+    # end
   end
 end
