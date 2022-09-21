@@ -32,9 +32,9 @@ RSpec.describe GamesController, type: :request do
       expect(response).to have_http_status(:success)
     end
 
-    # it 'Return Delete success' do
-    #   delete stadium_game_path(@stadium.id, @game.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
-    #   expect(response).to have_http_status(:success)
-    # end
+    it 'Return Delete success' do
+      delete stadium_game_path(@stadium.id, @game.id), headers: { 'Content-Type': 'application/json', 'Authorization': @token }, params: { username:@user.username }.to_json
+      expect(response).to have_http_status(:success)
+    end
   end
 end
