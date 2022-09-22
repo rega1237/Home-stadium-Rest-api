@@ -1,6 +1,9 @@
 require 'swagger_helper'
 
 RSpec.describe 'stadiums', type: :request do
+  # security [ api_key: [] ]
+
+
   path '/stadiums' do
     get('list staduims') do
       tags 'Stadiums'
@@ -32,15 +35,17 @@ RSpec.describe 'stadiums', type: :request do
     # You'll want to customize the parameter types...
     get 'Show stadium' do
       tags 'Stadiums'
-      produces 'application/json', 'application/xml'
+      produces 'application/json'
       parameter name: 'id', in: :path, type: :integer
+      security [ api_key: [] ]
+
       response '200', 'stadium found' do
         schema type: :object,
                properties: {
                  name: { type: :string },
                  country: { type: :string },
                  seats: { type: :integer },
-                 photo: { Type: :string }
+                 photo: { Type: :string },
                },
                required: %w[name country seats photo]
 

@@ -6,6 +6,13 @@ RSpec.configure do |config|
   # to ensure that it's configured to serve Swagger from the same folder
   config.swagger_root = Rails.root.join('swagger').to_s
 
+
+
+
+
+
+
+
   # Define one or more Swagger documents and provide global metadata for each one
   # When you run the 'rswag:specs:swaggerize' rake task, the complete Swagger will
   # be generated at the provided relative path under swagger_root
@@ -14,6 +21,15 @@ RSpec.configure do |config|
   # the root example_group in your specs, e.g. describe '...', swagger_doc: 'v2/swagger.json'
   config.swagger_docs = {
     'v1/swagger.yaml' => {
+      'components' => {
+        securitySchemes: {
+          api_key: {
+            type: :apiKey,
+            name: 'api_key',
+            in: :header
+          }
+        }
+      },
       openapi: '3.0.1',
       info: {
         title: 'API V1',
@@ -25,7 +41,7 @@ RSpec.configure do |config|
           url: 'http://localhost:3000',
           variables: {
             defaultHost: {
-              default: 'www.ruta-del-deploy.com'
+              default: 'www.ruta-deploy.com'
             }
           }
         }

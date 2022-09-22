@@ -1,4 +1,10 @@
 ---
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
 openapi: 3.0.1
 info:
   title: API V1
@@ -50,6 +56,8 @@ paths:
         required: true
         schema:
           type: integer
+      security:
+      - api_key: []
       responses:
         '200':
           description: stadium found
@@ -71,27 +79,8 @@ paths:
                 - country
                 - seats
                 - photo
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  country:
-                    type: string
-                  seats:
-                    type: integer
-                  photo:
-                    Type: string
-                required:
-                - name
-                - country
-                - seats
-                - photo
         '404':
           description: blog not found
-        '406':
-          description: unsupported accept header
     delete:
       summary: delete stadium
       tags:
@@ -103,4 +92,4 @@ servers:
 - url: http://localhost:3000
   variables:
     defaultHost:
-      default: www.ruta-del-deploy.com
+      default: www.ruta-deploy.com
