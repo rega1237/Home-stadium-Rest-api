@@ -1,66 +1,52 @@
 ---
 components:
   securitySchemes:
-    api_key:
+    token:
       type: apiKey
-      name: api_key
+      name: Authorization
       in: header
 openapi: 3.0.1
 info:
   title: API V1
   version: v1
 paths:
-  "/stadiums":
-    get:
-      summary: list staduims
-      tags:
-      - Stadiums
-      responses:
-        '200':
-          description: successful
+  "/auth/login":
     post:
-      summary: create stadium
+      summary: User token
       tags:
-      - Stadiums
+      - User
       parameters: []
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  username:
+                    type: string
+                  user_id:
+                    type: integer
+                required:
+                - username
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              properties:
-                name:
-                  type: string
-                country:
-                  type: string
-                seats:
-                  type: integer
-                photo:
-                  Type: string
-              required:
-              - name
-              - country
-              - seats
-              - photo
-  "/stadiums/{id}":
+  "/stadiums":
     get:
-      summary: Show stadium
+      summary: list staduims
       tags:
-      - Stadiums
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
+      - Stadium
       security:
-      - api_key: []
+      - token: []
       responses:
         '200':
-          description: stadium found
+          description: successful
           content:
             application/json:
               schema:
@@ -74,20 +60,6 @@ paths:
                     type: integer
                   photo:
                     Type: string
-                required:
-                - name
-                - country
-                - seats
-                - photo
-        '404':
-          description: blog not found
-    delete:
-      summary: delete stadium
-      tags:
-      - Stadiums
-      responses:
-        '200':
-          description: successful
 servers:
 - url: http://localhost:3000
   variables:

@@ -23,9 +23,9 @@ RSpec.configure do |config|
     'v1/swagger.yaml' => {
       'components' => {
         securitySchemes: {
-          api_key: {
+          token: {
             type: :apiKey,
-            name: 'api_key',
+            name: 'Authorization',
             in: :header
           }
         }
