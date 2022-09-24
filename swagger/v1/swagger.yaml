@@ -37,11 +37,27 @@ paths:
           application/json:
             schema:
               type: object
+  "/users/{id}/reservations":
+    get:
+      summary: list reservations
+      tags:
+      - Reservations
+      security:
+      - token: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
   "/stadiums":
     get:
       summary: list staduims
       tags:
-      - Stadium
+      - Stadiums
       security:
       - token: []
       responses:
@@ -60,6 +76,144 @@ paths:
                     type: integer
                   photo:
                     Type: string
+    post:
+      summary: create stadium
+      tags:
+      - Stadiums
+      security:
+      - token: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                country:
+                  type: string
+                seats:
+                  type: integer
+                photo:
+                  Type: string
+              required:
+              - name
+              - country
+              - seats
+              - photo
+  "/stadiums/{id}":
+    get:
+      summary: Show stadium
+      tags:
+      - Stadiums
+      security:
+      - token: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: stadium found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  country:
+                    type: string
+                  seats:
+                    type: integer
+                  photo:
+                    Type: string
+                  coming_games:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        game_id:
+                          type: integer
+                        teams:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              flag:
+                                type: string
+                        date:
+                          type: string
+                        available_seats:
+                          type: integer
+        '404':
+          description: Stadium Not FOUND
+    delete:
+      summary: delete stadium
+      tags:
+      - Stadiums
+      security:
+      - token: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+  "/stadiums/{stadium_id}/games/{id}":
+    get:
+      summary: Show Game
+      tags:
+      - Games
+      security:
+      - token: []
+      parameters:
+      - in: path
+        name: stadium_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: Show Game
+      tags:
+      - Games
+      security:
+      - token: []
+      parameters:
+      - in: path
+        name: stadium_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
 servers:
 - url: http://localhost:3000
   variables:
