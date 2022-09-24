@@ -1,5 +1,6 @@
 class ReservationsSerializer < ActiveModel::Serializer
   attributes :id, :reserved_seats, :reserved_game
+
   def reserved_game
     {
       teams: object.game.teams.map do |team|
