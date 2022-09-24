@@ -44,15 +44,9 @@ paths:
       - Reservations
       security:
       - token: []
-      parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: integer
       responses:
         '200':
-          description: stadium found
+          description: Reservations
           content:
             application/json:
               schema:
@@ -88,6 +82,62 @@ paths:
                           type: string
                         available_seats:
                           type: integer
+    post:
+      summary: Create reservation
+      tags:
+      - Reservations
+      security:
+      - token: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reserved_seats:
+                  type: integer
+                game_id:
+                  type: integer
+              required:
+              - name
+              - country
+              - seats
+              - photo
+  "/users/{user_id}/reservations/{id}":
+    get:
+      summary: Show reservation
+      tags:
+      - Reservations
+      security:
+      - token: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: Show reservation
+      tags:
+      - Reservations
+      security:
+      - token: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
   "/stadiums":
     get:
       summary: list staduims
@@ -208,6 +258,39 @@ paths:
       responses:
         '200':
           description: successful
+  "/stadiums/{id}/games/":
+    post:
+      summary: Create Game
+      tags:
+      - Games
+      security:
+      - token: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                game:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                    team_one:
+                      type: integer
+                    team_two:
+                      type: integer
+              required:
+              - date
   "/stadiums/{stadium_id}/games/{id}":
     get:
       summary: Show Game
@@ -230,7 +313,7 @@ paths:
         '200':
           description: successful
     delete:
-      summary: Show Game
+      summary: Delete Game
       tags:
       - Games
       security:
@@ -246,6 +329,17 @@ paths:
         required: true
         schema:
           type: integer
+      responses:
+        '200':
+          description: successful
+  "/teams":
+    get:
+      summary: List of teams
+      tags:
+      - Teams
+      security:
+      - token: []
+      parameters: []
       responses:
         '200':
           description: successful

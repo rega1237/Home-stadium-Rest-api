@@ -36,9 +36,9 @@ RSpec.describe 'stadiums', type: :request do
       security [ token: [] ]
       consumes 'application/json'
       produces 'application/json'
-      parameter in: :path, type: :integer, name: 'id'
+      # parameter in: :path, type: :integer, name: 'id'
       
-      response '200', 'stadium found' do
+      response '200', 'Reservations' do
         schema type: :object,
                properties: {
                  id: { type: :integer },
@@ -67,9 +67,56 @@ RSpec.describe 'stadiums', type: :request do
         run_test!
       end
     end
+      
+    post('Create reservation') do
+      tags 'Reservations'
+      security [ token: [] ]
+      consumes 'application/json'
+      produces 'application/json'
+      parameter name: :reservation, in: :body, schema: {
+        type: :object,
+        properties: {
+          reserved_seats: { type: :integer },
+          game_id: { type: :integer }
+        },
+        required: %w[name country seats photo]
+      }
+
+      response(200, 'successful') do
+        parameter name: :reservation, in: :body, eschema: {
+          type: :object,
+          properties: {
+            reserved_seats: { type: :integer },
+            game_id: { type: :integer }
+          },
+          required: %w[ reserved-seats game_id ]
+        }
+        run_test!
+      end
+    end
   end
 
+  path '/users/{user_id}/reservations/{id}' do
+    get('Show reservation') do
+      tags 'Reservations'
+      security [ token: [] ]
+      parameter in: :path, type: :integer, name: 'id'
 
+      response(200, 'successful') do
+        run_test!
+      end
+    end
+
+    delete('Show reservation') do
+      tags 'Reservations'
+      security [ token: [] ]
+      parameter in: :path, type: :integer, name: 'id'
+
+      response(200, 'successful') do
+        run_test!
+      end
+    end
+  end
 
   # ----- Documentation to Stadiums ----- #
   path '/stadiums' do
@@ -175,6 +222,42 @@ RSpec.describe 'stadiums', type: :request do
   end
 
   # ----- Documentation to Games ----- #
+  path '/stadiums/{id}/games/' do
+    post('Create Game') do
+      tags 'Games'
+      security [ token: [] ]
+      consumes 'application/json'
+      produces 'application/json'
+      parameter name: 'id', in: :path, type: :integer
+      parameter name: :game, in: :body, schema: {
+        type: :object,
+        properties: {
+          game: { type: :object,
+            properties: {
+              date: { type: :string },
+              team_one: { type: :integer },
+              team_two: { type: :integer }
+            }
+          }
+        },
+        required: %w[ date ]
+      }
+
+      response(200, 'successful') do
+        parameter name: :game, in: :body, schema: {
+          type: :object,
+          properties: {
+            date: { type: :string },
+            team_one: { type: :integer },
+            team_two: { type: :integer }
+          },
+          required: %w[name country seats photo]
+        }
+        run_test!
+      end      
+    end
+  end
+  
   path '/stadiums/{stadium_id}/games/{id}' do
     get 'Show Game' do
       tags 'Games'
@@ -188,7 +271,7 @@ RSpec.describe 'stadiums', type: :request do
       end
     end
 
-    delete 'Show Game' do
+    delete 'Delete Game' do
       tags 'Games'
       security [ token: [] ]
       produces 'application/json'
@@ -207,7 +290,7 @@ RSpec.describe 'stadiums', type: :request do
       tags 'Teams'
       security [ token: [] ]
       produces 'application/json'
-      
+        
       response(200, 'successful') do
         parameter name: :team, in: :body, schema: {
           type: :object,
@@ -217,6 +300,7 @@ RSpec.describe 'stadiums', type: :request do
           },
           required: %w[name flag]
         }
+        run_test!
       end
     end
   end
