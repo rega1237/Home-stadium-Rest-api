@@ -13,4 +13,7 @@ Rails.application.routes.draw do
   resources :stadiums do
     resources :games
   end
+
+  resources :teams, only: [:index] do
+  end
 end
