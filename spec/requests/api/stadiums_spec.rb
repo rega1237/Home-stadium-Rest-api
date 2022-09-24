@@ -38,7 +38,32 @@ RSpec.describe 'stadiums', type: :request do
       produces 'application/json'
       parameter in: :path, type: :integer, name: 'id'
       
-      response(200, 'successful') do
+      response '200', 'stadium found' do
+        schema type: :object,
+               properties: {
+                 id: { type: :integer },
+                 name: { type: :string },
+                 country: { type: :string },
+                 seats: { type: :integer },
+                 photo: { Type: :string },
+                 coming_games: { type: :array,
+                   items: { type: :object,
+                     properties: {
+                       game_id: { type: :integer },
+                       teams: { type: :array,
+                         items: { type: :object,
+                           properties: {
+                             name: { type: :string },
+                             flag: { type: :string }
+                           }
+                         }
+                       },
+                       date: { type: :string },
+                       available_seats: { type: :integer }
+                     }
+                   }
+                 }
+               }
         run_test!
       end
     end
@@ -172,6 +197,26 @@ RSpec.describe 'stadiums', type: :request do
 
       response(200, 'successful') do
         run_test!
+      end
+    end
+  end
+
+  # ----- Documentation to Teams ----- #
+  path '/teams' do
+    get('List of teams') do
+      tags 'Teams'
+      security [ token: [] ]
+      produces 'application/json'
+      
+      response(200, 'successful') do
+        parameter name: :team, in: :body, schema: {
+          type: :object,
+          properties: {
+            name: { type: :string },
+            flag: { type: :string }
+          },
+          required: %w[name flag]
+        }
       end
     end
   end

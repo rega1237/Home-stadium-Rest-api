@@ -52,7 +52,42 @@ paths:
           type: integer
       responses:
         '200':
-          description: successful
+          description: stadium found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  country:
+                    type: string
+                  seats:
+                    type: integer
+                  photo:
+                    Type: string
+                  coming_games:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        game_id:
+                          type: integer
+                        teams:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              flag:
+                                type: string
+                        date:
+                          type: string
+                        available_seats:
+                          type: integer
   "/stadiums":
     get:
       summary: list staduims
