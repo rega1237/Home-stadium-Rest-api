@@ -1,19 +1,18 @@
 require 'swagger_helper'
 
 RSpec.describe 'stadiums', type: :request do
-
   # ----- Documentation to get user token ----- #
   path '/auth/login' do
-    post ('User token') do
+    post('User token') do
       tags 'User'
       consumes 'application/json'
       produces 'application/json'
 
-      parameter ({
-        :in => :body,
-        :type => :object,
-        :name => 'username' 
-      })
+      parameter({
+                  in: :body,
+                  type: :object,
+                  name: 'username'
+                })
 
       response(200, 'successful') do
         schema type: :object,
@@ -33,11 +32,10 @@ RSpec.describe 'stadiums', type: :request do
   path '/users/{id}/reservations' do
     get('list reservations') do
       tags 'Reservations'
-      security [ token: [] ]
+      security [token: []]
       consumes 'application/json'
       produces 'application/json'
-      # parameter in: :path, type: :integer, name: 'id'
-      
+
       response '200', 'Reservations' do
         schema type: :object,
                properties: {
@@ -47,32 +45,29 @@ RSpec.describe 'stadiums', type: :request do
                  seats: { type: :integer },
                  photo: { Type: :string },
                  coming_games: { type: :array,
-                   items: { type: :object,
-                     properties: {
-                       game_id: { type: :integer },
-                       teams: { type: :array,
-                         items: { type: :object,
-                           properties: {
-                             name: { type: :string },
-                             flag: { type: :string }
-                           }
-                         }
-                       },
-                       date: { type: :string },
-                       available_seats: { type: :integer }
-                     }
-                   }
-                 }
+                                 items: { type: :object,
+                                          properties: {
+                                            game_id: { type: :integer },
+                                            teams: { type: :array,
+                                                     items: { type: :object,
+                                                              properties: {
+                                                                name: { type: :string },
+                                                                flag: { type: :string }
+                                                              } } },
+                                            date: { type: :string },
+                                            available_seats: { type: :integer }
+                                          } } }
                }
         run_test!
       end
     end
-      
+
     post('Create reservation') do
       tags 'Reservations'
-      security [ token: [] ]
+      security [token: []]
       consumes 'application/json'
       produces 'application/json'
+
       parameter name: :reservation, in: :body, schema: {
         type: :object,
         properties: {
@@ -89,7 +84,7 @@ RSpec.describe 'stadiums', type: :request do
             reserved_seats: { type: :integer },
             game_id: { type: :integer }
           },
-          required: %w[ reserved-seats game_id ]
+          required: %w[reserved-seats game_id]
         }
         run_test!
       end
@@ -99,7 +94,8 @@ RSpec.describe 'stadiums', type: :request do
   path '/users/{user_id}/reservations/{id}' do
     get('Show reservation') do
       tags 'Reservations'
-      security [ token: [] ]
+      security [token: []]
+
       parameter in: :path, type: :integer, name: 'id'
 
       response(200, 'successful') do
@@ -109,7 +105,8 @@ RSpec.describe 'stadiums', type: :request do
 
     delete('Show reservation') do
       tags 'Reservations'
-      security [ token: [] ]
+      security [token: []]
+
       parameter in: :path, type: :integer, name: 'id'
 
       response(200, 'successful') do
@@ -122,7 +119,7 @@ RSpec.describe 'stadiums', type: :request do
   path '/stadiums' do
     get('list staduims') do
       tags 'Stadiums'
-      security [ token: [] ]
+      security [token: []]
       consumes 'application/json'
       produces 'application/json'
 
@@ -133,14 +130,14 @@ RSpec.describe 'stadiums', type: :request do
                  country: { type: :string },
                  seats: { type: :integer },
                  photo: { Type: :string }
-        }
+               }
         run_test!
       end
     end
 
     post('create stadium') do
       tags 'Stadiums'
-      security [ token: [] ]
+      security [token: []]
       consumes 'application/json'
       produces 'application/json'
 
@@ -174,9 +171,11 @@ RSpec.describe 'stadiums', type: :request do
   path '/stadiums/{id}' do
     get 'Show stadium' do
       tags 'Stadiums'
-      security [ token: [] ]
+      security [token: []]
       produces 'application/json'
+
       parameter name: 'id', in: :path, type: :integer
+
       response '200', 'stadium found' do
         schema type: :object,
                properties: {
@@ -186,22 +185,18 @@ RSpec.describe 'stadiums', type: :request do
                  seats: { type: :integer },
                  photo: { Type: :string },
                  coming_games: { type: :array,
-                   items: { type: :object,
-                     properties: {
-                       game_id: { type: :integer },
-                       teams: { type: :array,
-                         items: { type: :object,
-                           properties: {
-                             name: { type: :string },
-                             flag: { type: :string }
-                           }
-                         }
-                       },
-                       date: { type: :string },
-                       available_seats: { type: :integer }
-                     }
-                   }
-                 }
+                                 items: { type: :object,
+                                          properties: {
+                                            game_id: { type: :integer },
+                                            teams: { type: :array,
+                                                     items: { type: :object,
+                                                              properties: {
+                                                                name: { type: :string },
+                                                                flag: { type: :string }
+                                                              } } },
+                                            date: { type: :string },
+                                            available_seats: { type: :integer }
+                                          } } }
                }
         run_test!
       end
@@ -213,8 +208,10 @@ RSpec.describe 'stadiums', type: :request do
 
     delete('delete stadium') do
       tags 'Stadiums'
-      security [ token: [] ]
+      security [token: []]
+
       parameter name: 'id', in: :path, type: :integer
+
       response(200, 'successful') do
         run_test!
       end
@@ -225,22 +222,22 @@ RSpec.describe 'stadiums', type: :request do
   path '/stadiums/{id}/games/' do
     post('Create Game') do
       tags 'Games'
-      security [ token: [] ]
+      security [token: []]
       consumes 'application/json'
       produces 'application/json'
+
       parameter name: 'id', in: :path, type: :integer
       parameter name: :game, in: :body, schema: {
         type: :object,
         properties: {
           game: { type: :object,
-            properties: {
-              date: { type: :string },
-              team_one: { type: :integer },
-              team_two: { type: :integer }
-            }
-          }
+                  properties: {
+                    date: { type: :string },
+                    team_one: { type: :integer },
+                    team_two: { type: :integer }
+                  } }
         },
-        required: %w[ date ]
+        required: %w[date]
       }
 
       response(200, 'successful') do
@@ -254,15 +251,16 @@ RSpec.describe 'stadiums', type: :request do
           required: %w[name country seats photo]
         }
         run_test!
-      end      
+      end
     end
   end
-  
+
   path '/stadiums/{stadium_id}/games/{id}' do
     get 'Show Game' do
       tags 'Games'
-      security [ token: [] ]
+      security [token: []]
       produces 'application/json'
+
       parameter in: :path, type: :integer, name: 'stadium_id'
       parameter in: :path, type: :integer, name: 'id'
 
@@ -273,8 +271,9 @@ RSpec.describe 'stadiums', type: :request do
 
     delete 'Delete Game' do
       tags 'Games'
-      security [ token: [] ]
+      security [token: []]
       produces 'application/json'
+
       parameter in: :path, type: :integer, name: 'stadium_id'
       parameter in: :path, type: :integer, name: 'id'
 
@@ -288,9 +287,9 @@ RSpec.describe 'stadiums', type: :request do
   path '/teams' do
     get('List of teams') do
       tags 'Teams'
-      security [ token: [] ]
+      security [token: []]
       produces 'application/json'
-        
+
       response(200, 'successful') do
         parameter name: :team, in: :body, schema: {
           type: :object,
