@@ -59,3 +59,5 @@ gem 'devise'
 gem 'figaro'
 
 gem 'rack-cors'
+
+gem 'rswag'
