@@ -8,7 +8,7 @@
 - Reserve the seats you want (if available)
 - View all the reservations that the user owns
 
-# [Front End Repo](https://github.com/rega1237/hello-react-front-end)
+# [Front End Repo](https://github.com/rega1237/front-end-capstone-fullstack)
 
 ## Built With
 
