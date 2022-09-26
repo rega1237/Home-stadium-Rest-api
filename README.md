@@ -33,7 +33,7 @@ To get a local copy up and running follow these simple steps:
 - Type these commands into the terminal:
 
 ```
-git clone https://github.com/rega1237/budget-app
+git clone https://github.com/rega1237/back-end-capstone-fullstack
 cd budget-app
 bundle install
 bundle exec figaro install
@@ -75,7 +75,7 @@ rspec
 
 ### Documentation
 
-- With the server open go to [http://localhost:3000/api-docs/index.html](http://127.0.0.1:3000/)
+- With the server open go to [http://localhost:3000/api-docs/index.html](http://localhost:3000/api-docs/index.html)
 
 
 ## Author
@@ -103,7 +103,6 @@ Give a ⭐️ if you like this project!
 ## Acknowledgments
 
 - [Microverse](https://www.microverse.org/) for the motivation.
-- Original design idea by [Gregoire Vella](https://www.behance.net/gregoirevella)
 
 ## 📝 License
 
