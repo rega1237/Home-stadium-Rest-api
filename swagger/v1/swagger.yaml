@@ -37,6 +37,11 @@ paths:
           application/json:
             schema:
               type: object
+              properties:
+                username:
+                  type: string
+              required:
+              - username
   "/users/{id}/reservations":
     get:
       summary: list reservations
@@ -103,10 +108,8 @@ paths:
                 game_id:
                   type: integer
               required:
-              - name
-              - country
-              - seats
-              - photo
+              - reserved_seats
+              - game_id
   "/users/{user_id}/reservations/{id}":
     get:
       summary: Show reservation

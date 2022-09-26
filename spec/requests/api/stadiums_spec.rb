@@ -8,11 +8,13 @@ RSpec.describe 'stadiums', type: :request do
       consumes 'application/json'
       produces 'application/json'
 
-      parameter({
-                  in: :body,
-                  type: :object,
-                  name: 'username'
-                })
+      parameter name: :user, in: :body, schema: {
+        type: :object,
+        properties: {
+          username: { type: :string }
+        },
+        required: %w[username]
+      }
 
       response(200, 'successful') do
         schema type: :object,
@@ -74,7 +76,7 @@ RSpec.describe 'stadiums', type: :request do
           reserved_seats: { type: :integer },
           game_id: { type: :integer }
         },
-        required: %w[name country seats photo]
+        required: %w[reserved_seats game_id]
       }
 
       response(200, 'successful') do
