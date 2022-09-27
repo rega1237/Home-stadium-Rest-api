@@ -14,13 +14,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(games_params)
-    @game.stadium_id = params[:stadium_id]
-    @team_one = Team.find(params[:game][:team_one])
-    @team_two = Team.find(params[:game][:team_two])
-    @game.available_seats = @game.stadium.seats
-    @game.teams << @team_one
-    @game.teams << @team_two
+    create_game
     if @game.save
       render json: {
                all_data: {
@@ -49,5 +43,15 @@ class GamesController < ApplicationController
 
   def games_params
     params.require(:game).permit(:date)
+  end
+
+  def create_game
+    @game = Game.new(games_params)
+    @game.stadium_id = params[:stadium_id]
+    @team_one = Team.find(params[:game][:team_one])
+    @team_two = Team.find(params[:game][:team_two])
+    @game.available_seats = @game.stadium.seats
+    @game.teams << @team_one
+    @game.teams << @team_two
   end
 end

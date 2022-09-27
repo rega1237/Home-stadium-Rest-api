@@ -11,7 +11,7 @@ RSpec.describe Stadium, type: :model do
   end
 
   describe 'Stadium model' do
-    it 'should be valid' do
+    it 'Stadium has been created valid' do
       expect(@stadium).to be_valid
     end
 
