@@ -72,6 +72,8 @@ rails server
 - Type this command into the terminal:
 
 ```
+rails db:migrate RAILS_ENV=test
+rails db:seed RAILS_ENV=test
 rspec
 ```
 

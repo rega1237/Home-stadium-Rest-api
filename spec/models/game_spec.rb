@@ -16,7 +16,7 @@ RSpec.describe Game, type: :model do
   end
 
   describe 'Game model' do
-    it 'should be valid' do
+    it 'Game has been created valid' do
       expect(@game).to be_valid
     end
 

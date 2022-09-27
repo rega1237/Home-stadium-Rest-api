@@ -24,7 +24,7 @@ RSpec.describe Reservation, type: :model do
   end
 
   describe 'resevation model' do
-    it 'should be valid' do
+    it 'Reservation has been created valid' do
       expect(@reservation).to be_valid
     end
 
