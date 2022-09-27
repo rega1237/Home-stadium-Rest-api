@@ -36,7 +36,7 @@ To get a local copy up and running follow these simple steps:
 
 ```
 git clone https://github.com/rega1237/back-end-capstone-fullstack
-cd budget-app
+cd back-end-capstone-fullstack
 bundle install
 bundle exec figaro install
 ```
