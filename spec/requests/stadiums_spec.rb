@@ -1,14 +1,9 @@
 require 'rails_helper'
+require_relative 'requests_context'
 
 RSpec.describe 'Stadiums', type: :request do
   include Warden::Test::Helpers
-
-  before :all do
-    @user = User.order(:id).first
-    @stadium = Stadium.order(:id).first
-    post auth_login_path, headers: { 'Content-Type': 'application/json' }, params: { username: @user.username }.to_json
-    @token = JSON.parse(response.body)['token']
-  end
+  include_context 'request_context'
 
   describe 'Stadiums`s Actions' do
     it 'Return Index success' do
@@ -17,7 +12,7 @@ RSpec.describe 'Stadiums', type: :request do
     end
 
     it 'Return Show success' do
-      get stadium_path(@stadium.id), headers: { 'Content-Type': 'application/json', Authorization: @token }
+      get stadium_path(stadium.id), headers: { 'Content-Type': 'application/json', Authorization: @token }
       expect(response).to have_http_status(:success)
     end
 
@@ -32,7 +27,7 @@ RSpec.describe 'Stadiums', type: :request do
     end
 
     it 'Return Delete success' do
-      delete stadium_path(@stadium.id), headers: { 'Content-Type': 'application/json', Authorization: @token }
+      delete stadium_path(stadium.id), headers: { 'Content-Type': 'application/json', Authorization: @token }
       expect(response).to have_http_status(:success)
     end
   end
