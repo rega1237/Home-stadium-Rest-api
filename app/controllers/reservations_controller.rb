@@ -11,12 +11,8 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @game = Game.find(params[:reservation][:game_id])
-    @valid = @game.available_seats >= params[:reservation][:reserved_seats].to_i
-    if @valid
-      @reservation = Reservation.new(reservation_params)
-      @reservation = @game.reservations.create(reservation_params)
-      @reservation.user = @current_user_id
+    if valid_seats
+      @reservation = create_reservation
       if @reservation.save
         render json: @reservation, status: :created
       else
@@ -40,5 +36,18 @@ class ReservationsController < ApplicationController
 
   def set_reservation
     @reservation = Reservation.find(params[:id])
+  end
+
+  def valid_seats
+    @game = Game.find(params[:reservation][:game_id])
+    @game.available_seats >= params[:reservation][:reserved_seats].to_i
+  end
+
+  def create_reservation
+    reservation = Reservation.new(reservation_params)
+    reservation.game_id = @game.id
+    reservation.user = @current_user_id
+    @game.reservations << reservation
+    reservation
   end
 end
