@@ -25,10 +25,10 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'http://localhost:3000',
+          url: 'https://stadium-api-rails.herokuapp.com',
           variables: {
             defaultHost: {
-              default: 'www.ruta-deploy.com'
+              default: 'https://stadium-api-rails.herokuapp.com/'
             }
           }
         }
