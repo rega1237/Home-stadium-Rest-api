@@ -9,7 +9,343 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
-paths: {}
+paths:
+  "/auth/login":
+    post:
+      summary: User token
+      tags:
+      - User
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  username:
+                    type: string
+                  user_id:
+                    type: integer
+                required:
+                - username
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+              required:
+              - username
+  "/users/{id}/reservations":
+    get:
+      summary: list reservations
+      tags:
+      - Reservations
+      security:
+      - token: []
+      responses:
+        '200':
+          description: Reservations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  country:
+                    type: string
+                  seats:
+                    type: integer
+                  photo:
+                    Type: string
+                  coming_games:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        game_id:
+                          type: integer
+                        teams:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              flag:
+                                type: string
+                        date:
+                          type: string
+                        available_seats:
+                          type: integer
+    post:
+      summary: Create reservation
+      tags:
+      - Reservations
+      security:
+      - token: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reserved_seats:
+                  type: integer
+                game_id:
+                  type: integer
+              required:
+              - reserved_seats
+              - game_id
+  "/users/{user_id}/reservations/{id}":
+    get:
+      summary: Show reservation
+      tags:
+      - Reservations
+      security:
+      - token: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: Show reservation
+      tags:
+      - Reservations
+      security:
+      - token: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+  "/stadiums":
+    get:
+      summary: list staduims
+      tags:
+      - Stadiums
+      security:
+      - token: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  country:
+                    type: string
+                  seats:
+                    type: integer
+                  photo:
+                    Type: string
+    post:
+      summary: create stadium
+      tags:
+      - Stadiums
+      security:
+      - token: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                country:
+                  type: string
+                seats:
+                  type: integer
+                photo:
+                  Type: string
+              required:
+              - name
+              - country
+              - seats
+              - photo
+  "/stadiums/{id}":
+    get:
+      summary: Show stadium
+      tags:
+      - Stadiums
+      security:
+      - token: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: stadium found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  country:
+                    type: string
+                  seats:
+                    type: integer
+                  photo:
+                    Type: string
+                  coming_games:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        game_id:
+                          type: integer
+                        teams:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              flag:
+                                type: string
+                        date:
+                          type: string
+                        available_seats:
+                          type: integer
+        '404':
+          description: Stadium Not FOUND
+    delete:
+      summary: delete stadium
+      tags:
+      - Stadiums
+      security:
+      - token: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+  "/stadiums/{id}/games/":
+    post:
+      summary: Create Game
+      tags:
+      - Games
+      security:
+      - token: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                game:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                    team_one:
+                      type: integer
+                    team_two:
+                      type: integer
+              required:
+              - date
+  "/stadiums/{stadium_id}/games/{id}":
+    get:
+      summary: Show Game
+      tags:
+      - Games
+      security:
+      - token: []
+      parameters:
+      - in: path
+        name: stadium_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: Delete Game
+      tags:
+      - Games
+      security:
+      - token: []
+      parameters:
+      - in: path
+        name: stadium_id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+  "/teams":
+    get:
+      summary: List of teams
+      tags:
+      - Teams
+      security:
+      - token: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
 servers:
 - url: https://stadiums-rails-api.herokuapp.com/
   variables:
