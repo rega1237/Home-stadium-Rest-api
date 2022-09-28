@@ -12,7 +12,9 @@
 
 # [Front End Repo](https://github.com/rega1237/front-end-capstone-fullstack)
 
-## Live Demo (https://homestadium.netlify.app/home)
+## Live Demo
+
+[Live Demo](https://homestadium.netlify.app/home)
 
 ## Built With
 
