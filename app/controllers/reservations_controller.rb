@@ -47,7 +47,6 @@ class ReservationsController < ApplicationController
     reservation = Reservation.new(reservation_params)
     reservation.game_id = @game.id
     reservation.user = @current_user_id
-    @game.reservations << reservation
     reservation
   end
 end
