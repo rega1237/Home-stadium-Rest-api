@@ -18,8 +18,8 @@
 
 ## Kanban board
 
-[Link to](https://github.com/users/rega1237/projects/3)
-[Initial state](https://github.com/rega1237/kanban-board-capstone/issues/1)
+- [Link to](https://github.com/users/rega1237/projects/3)
+- [Initial state](https://github.com/rega1237/kanban-board-capstone/issues/1)
 
 ## Built With
 
