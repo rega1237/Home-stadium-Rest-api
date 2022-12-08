@@ -25,10 +25,10 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'https://stadium-api-rails.herokuapp.com',
+          url: 'https://homestadium.onrender.com',
           variables: {
             defaultHost: {
-              default: 'https://stadium-api-rails.herokuapp.com/'
+              default: 'https://homestadium.onrender.com/'
             }
           }
         }
